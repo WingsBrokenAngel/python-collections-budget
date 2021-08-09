@@ -25,6 +25,15 @@ class Expenses():
                 self.list.append(Expense(row[0],row[1], row[2], amount))
                 self.sum += amount
 
+    def categorize_set_comprehension(self):
+        necessary_expenses = {i for i in self.list
+            if (i.category == 'Phone'    or i.category == 'Auto and Gas' or
+                i.category == 'Classes'  or i.category == 'Utilities' or
+                i.category == 'Mortgage')}
+        food_expenses = {i for i in self.list if (i.category == 'Groceries' or i.category == 'Eating Out')}
+        unnecessary_expenses = set(self.list) - necessary_expenses - food_expenses
+        return [necessary_expenses, food_expenses, unnecessary_expenses]
+
     def categorize_for_loop(self):
             necessary_expenses2 = set()
             food_expenses2 = set()
@@ -40,12 +49,3 @@ class Expenses():
                     unnecessary_expenses2.add(i)
 
             return [necessary_expenses2, food_expenses2, unnecessary_expenses2]
-
-    def categorize_set_comprehension(self):
-        necessary_expenses = {i for i in self.list
-            if (i.category == 'Phone'    or i.category == 'Auto and Gas' or
-                i.category == 'Classes'  or i.category == 'Utilities' or
-                i.category == 'Mortgage')}
-        food_expenses = {i for i in self.list if (i.category == 'Groceries' or i.category == 'Eating Out')}
-        unnecessary_expenses = set(self.list) - necessary_expenses - food_expenses
-        return [necessary_expenses, food_expenses, unnecessary_expenses]
